@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class CityNode
 {
 	public String name;
@@ -6,6 +9,7 @@ public class CityNode
 	public int id;
 	static int uuid=0;
     static final double kmToMile = 0.62;
+	static Map<String, Integer> nameIds = new HashMap<>();
 
 	CityNode(String name, double lat, double lon, int pop) //regular constructor
 	{
@@ -14,6 +18,7 @@ public class CityNode
 		this.lon = lon;
 		this.pop = pop;
 		this.id = uuid;
+		nameIds.put(name, this.id);
 		uuid++;
 	}
 	
@@ -40,5 +45,9 @@ public class CityNode
 	public static double deg2rad(double deg)
 	{
 		return (deg * Math.PI/180);
+	}
+
+	public static int getIdFromName(String name){
+		return nameIds.get(name);
 	}
 }
