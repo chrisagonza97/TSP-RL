@@ -21,11 +21,22 @@ public class TSP {
         n = cityList.size();
         state = new State(cityGraph);
         buildTour();
+        printOutput();
+    }
+
+    private static void printOutput() {
+        System.out.println("Length of shortest tour: "+globalLow);
+        System.out.println("Shortest tour: ");
+        for(int i=0;i<globalBestTour.size();i++){
+            System.out.println(""+cityList.get(globalBestTour.get(i)).id +" ("+ cityList.get(globalBestTour.get(i)).name+")");
+        }
     }
 
     static void buildTour() {
+
         int epi = 0;
         while (epi < episodes) {
+            state.initAgents();
             // Step 2. of the algorithm
             for (int i = 0; i < n; i++) {// city iteration
                 if (i != n - 1) {
@@ -64,7 +75,7 @@ public class TSP {
                     state.updateQ(tempAgent.currentCity, tempAgent.nextCity, tempAgent);
                     tempAgent.currentCity = tempAgent.nextCity;
                 }
-                System.out.println("loop");
+                //System.out.println("loop");
             }
             // In this step delayed reinforcement is computed and AQ-values are updated
             // using formula(2), in which the next state evaluation term γ·Max AQ(rk1,z) is

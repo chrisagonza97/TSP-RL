@@ -44,14 +44,21 @@ public class State {
         // find next state for agent k using formula (1)
         int currCity = agents[k].currentCity;
         double q = Math.random() * (1 + Double.MIN_VALUE);
+        int nextCity = -1;
         if (q <= q0) {
             // exploitation
-            return maxNextCity(currCity, agents[k]);
-
+            nextCity = maxNextCity(currCity, agents[k]);
+            if(nextCity==-1){
+                System.out.println("exploit bug");
+            }
         } else {
             // exploration
-            return randomNextCity(currCity, agents[k]);
+            nextCity = randomNextCity(currCity, agents[k]);
+            if(nextCity==-1){
+                System.out.println("explore bug");
+            }
         }
+        return nextCity;
     }
 
     private int randomNextCity(int k, Agent agent) {
@@ -69,8 +76,6 @@ public class State {
 
         // normalize weights to a cumulative distribution
         double[] cumulativeWeights = new double[unvisitedSize];
-        // cumulativeWeights[0] = (k == 0 ? 0 : weights[0] / totalWeight); // Handle
-        // edge case if k == 0
         for (int i = 1; i < unvisitedSize; i++) {
             cumulativeWeights[i] = cumulativeWeights[i - 1] + (weights[i] / totalWeight);
         }
@@ -80,8 +85,12 @@ public class State {
             if (randomValue < cumulativeWeights[i]) {
                 return agent.unvisited.get(i); // Return the selected city 
             }
+            if(i==unvisitedSize-1){
+                return agent.unvisited.get(i);
+            }
         }
-
+        System.out.println(cumulativeWeights[unvisitedSize-1]);
+        System.out.println(randomValue);
         return -1;// if this is reached, there is a bug
     }
 
