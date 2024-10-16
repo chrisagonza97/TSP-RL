@@ -12,7 +12,7 @@ public class State {
     double gamma = .3;
     int delta = 1;
     int beta = 2;
-    int W = 10;
+    int W = 1500;
 
     public State(Graph graph) {
         this.graph = graph;

@@ -8,7 +8,7 @@ public class TSP {
     static ArrayList<CityNode> cityList;
     static Graph cityGraph;
     static State state;
-    static String start = "Albany,Ny";
+    //static String start = "Albany,Ny";
     static int episodes = 100;
     static int n;
     static double globalLow = Double.POSITIVE_INFINITY;
@@ -25,11 +25,12 @@ public class TSP {
     }
 
     private static void printOutput() {
-        System.out.println("Length of shortest tour: "+globalLow);
+        
         System.out.println("Shortest tour: ");
         for(int i=0;i<globalBestTour.size();i++){
             System.out.println(""+cityList.get(globalBestTour.get(i)).id +" ("+ cityList.get(globalBestTour.get(i)).name+")");
         }
+        System.out.println("Length of shortest tour: "+globalLow);
     }
 
     static void buildTour() {
